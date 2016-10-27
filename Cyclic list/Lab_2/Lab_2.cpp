@@ -36,7 +36,7 @@ void add(elementListy *&head,int givenKey)
 	{
 		if (actual->key == givenKey)
 		{
-			cout << "SMall changeElement o danym kluczu ju¿ istnieje!\n";
+			cout << "Element with given key already exist!\n";
 			return;
 		}
 		actual = actual->next; 
@@ -176,7 +176,7 @@ int main()
 	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 
 	// Wyœwietl czas na ekranie: 
-	printf("\nCaly proces trwal : %f\n", time_spent);
+	printf("\nTime of process : %f\n", time_spent);
 
 	//Czekaj na enter:
 	cin.sync();
