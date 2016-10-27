@@ -36,7 +36,7 @@ void add(elementListy *&head,int givenKey)
 	{
 		if (actual->key == givenKey)
 		{
-			cout << "Element o danym kluczu ju¿ istnieje!\n";
+			cout << "SMall changeElement o danym kluczu ju¿ istnieje!\n";
 			return;
 		}
 		actual = actual->next; 
