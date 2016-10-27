@@ -64,7 +64,7 @@ void add(elementListy *&head,int givenKey)
 void insertElements(elementListy *&head, int X) {
 	for (int i = 0; i < X; i++)
 	{
-		add(head, (rand() % 20000 + 10));
+		add(head, (rand() % 19990 + 10));
 	}
 }
 
