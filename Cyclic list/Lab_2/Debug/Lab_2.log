@@ -1,0 +1,4 @@
+﻿  Lab_2.cpp
+c:\users\puman\onedrive\university\semestr iii\struktury danych\projects\lab-2\lab_2\lab_2\lab_2.cpp(133): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Lab_2.vcxproj -> C:\Users\puman\OneDrive\University\Semestr III\Struktury Danych\Projects\Lab-2\Lab_2\Debug\Lab_2.exe
+  Lab_2.vcxproj -> C:\Users\puman\OneDrive\University\Semestr III\Struktury Danych\Projects\Lab-2\Lab_2\Debug\Lab_2.pdb (Full PDB)
