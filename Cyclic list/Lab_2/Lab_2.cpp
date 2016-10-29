@@ -43,19 +43,14 @@ void add(listElement *&head,int givenKey)
 		prev = actual;
 		actual = actual->next;
 		
-		//Case when we hadn't any element on the list :
+		//Case when we haven't any element on the list :
 		if (head->key == NULL)
 		{
 			head->key = givenKey;
 			head->number = rand() % 500;
 			head->sign = 'Z';
 		}
-		else if ((actual->key > givenKey)&&(prev->key < givenKey))
-		{
-
-		}
-		//Case when there is one element on the list and it is greter than new one element :
-		else if ((actual->key > givenKey)&&(actual == head))
+		else if (givenKey < head->key)
 		{
 			temp = head;
 
@@ -65,6 +60,18 @@ void add(listElement *&head,int givenKey)
 			head->number = rand() % 500;
 			head->sign = 'Z';
 			head->next = temp;
+		}
+		//Case when we have at least 2 elements on the list and we want to put it between smaller and greater element :
+		else if ((actual->key > givenKey)&&(prev->key < givenKey))
+		{
+			temp = prev->next;
+			prev->next = actual;
+			actual->next = temp;
+
+			actual->key = givenKey;
+			actual->number = rand() % 500;
+			actual->sign = 'Z';
+
 		}
 
 	} while (actual != head);
