@@ -157,19 +157,19 @@ void find(listElement *&head, int key)
 
 void deleteElement(listElement *&head, int givenKey)
 {
-	listElement *actual = head, *temp, *prev = tail;
+	listElement *actual = head, temp, *prev = tail;
 
 	do
 	{
 		if (givenKey == head->key)
 		{
-			temp = head;
+			temp = *head;
 			delete head;
-			head = temp->next;
+			head = temp.next;
 
 			tail->next = head;
 
-			cout << "\nDeleted (head) >> Key: " << temp->key << " Number: " << temp->number << " Sign:" << temp->sign << endl;
+			cout << "\nDeleted (head) >> Key: " << temp.key << " Number: " << temp.number << " Sign:" << temp.sign << endl;
 			return;
 		}
 		else if (givenKey == actual->key)
@@ -232,7 +232,6 @@ int main()
 
 	show(list, 10);
 
-	/*
 	insertElements(list,X);
 
 	show(list, 20);
@@ -264,7 +263,6 @@ int main()
 
 	find(list, k5);
 
-	*/
 	deleteList(list);
 
 	//Zegar stop:
