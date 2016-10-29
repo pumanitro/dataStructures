@@ -202,6 +202,19 @@ int main()
 	double time_spent;
 	begin = clock();
 
+	//File read:
+	int X, k1, k2, k3, k4, k5;
+	FILE* fp;
+	errno_t err;
+
+	err = fopen_s(&fp,"inputData.txt", "r");
+	if (err != 0)
+		return -1;
+	fscanf_s(fp, "%d %d %d %d %d %d", &X, &k1, &k2, &k3, &k4, &k5);
+	fclose(fp);
+
+	printf("I read from file %d %d %d %d %d %d\n\n", X, k1, k2, k3, k4, k5);
+
 	//CONTENT :
 
 	listElement *list;
