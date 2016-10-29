@@ -221,15 +221,38 @@ int main()
 
 	initialize(list);
 
-	add(list, 2);
-	add(list, 3);
-	add(list, 1);
+	add(list, k1);
 
-	insertElements(list,10);
+	insertElements(list,X);
 
-	show(list, 15);
+	show(list, 20);
+	cout << endl;
 
-	find(list, 3);
+	add(list, k2);
+	show(list, 20);
+	cout << endl;
+
+	add(list, k3);
+	show(list, 20);
+	cout << endl;
+
+	add(list, k4);
+	show(list, 20);
+	cout << endl;
+
+	add(list, k5);
+
+	deleteElement(list, k3);
+	show(list, 20);
+	cout << endl;
+
+	deleteElement(list, k2);
+	show(list, 20);
+	cout << endl;
+
+	deleteElement(list, k5);
+
+	find(list, k5);
 
 	deleteList(list);
 
