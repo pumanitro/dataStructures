@@ -71,6 +71,19 @@ void add(listElement *&head,int givenKey)
 
 			break;
 		}
+		else if ((actual->next == head) && (actual->key < givenKey))
+		{
+			temp = new listElement;
+
+			temp->key = givenKey;
+			temp->number = rand() % 500;
+			temp->sign = 'Z';
+
+			actual->next = temp;
+			temp->next = head;
+
+			break;
+		}
 
 	} while (actual != head);
 
