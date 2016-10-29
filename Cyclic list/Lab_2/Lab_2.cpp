@@ -17,21 +17,18 @@ struct listElement {
 	listElement *next;
 };
 
-listElement *tail;
-
 void initialize(listElement *&head) {
 	head = new listElement;
 	head->key = NULL;
 	head->number = NULL;
 	head->sign = NULL;
 	head->next = head;
-	tail = head;
 }
 
 void add(listElement *&head,int givenKey) 
 {
 	//sprawdzenie czy element znajduje siê na liscie:
-	listElement *actual = head, *prev,*temp;
+	listElement *actual = head, *prev,*temp, *newOne;
 	do
 	{
 		if (actual->key == givenKey)
@@ -61,39 +58,22 @@ void add(listElement *&head,int givenKey)
 			head->sign = 'Z';
 			head->next = temp;
 		}
-		//Case when we have at least 2 elements on the list and we want to put it between smaller and greater element :
-		else if ((actual->key > givenKey)&&(prev->key < givenKey))
+		else if (actual->key > givenKey)
 		{
-			temp = prev->next;
-			prev->next = actual;
-			actual->next = temp;
+			temp = new listElement;
 
-			actual->key = givenKey;
-			actual->number = rand() % 500;
-			actual->sign = 'Z';
+			temp->key = givenKey;
+			temp->number = rand() % 500;
+			temp->sign = 'Z';
 
+			prev->next = temp;
+			temp->next = actual;
+
+			break;
 		}
 
 	} while (actual != head);
 
-	//przypisanie wartoœci nowemu elementowi listy:
-	listElement *newOne;
-	if (head->key == NULL) {
-		newOne = head;
-	}
-	else 
-		newOne = new listElement;
-
-
-	//TODO: delete tail and put new element on the correct place
-	tail->next = newOne;
-
-	newOne->key = givenKey;
-	newOne->number = rand() % 500;
-	newOne->sign = 'Z';
-	newOne->next = head;
-	 
-	tail = newOne;
 }
 
 void insertElements(listElement *&head, int X) {
