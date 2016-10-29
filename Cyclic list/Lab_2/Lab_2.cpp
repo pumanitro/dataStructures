@@ -10,17 +10,17 @@
 
 using namespace std;
 
-struct elementListy {
+struct listElement {
 	int key;
 	double number;
 	char sign;
-	elementListy *next;
+	listElement *next;
 };
 
-elementListy *tail;
+listElement *tail;
 
-void initialize(elementListy *&head) {
-	head = new elementListy;
+void initialize(listElement *&head) {
+	head = new listElement;
 	head->key = NULL;
 	head->number = NULL;
 	head->sign = NULL;
@@ -28,10 +28,10 @@ void initialize(elementListy *&head) {
 	tail = head;
 }
 
-void add(elementListy *&head,int givenKey) 
+void add(listElement *&head,int givenKey) 
 {
 	//sprawdzenie czy element znajduje siê na liscie:
-	elementListy *actual = head;
+	listElement *actual = head;
 	do
 	{
 		if (actual->key == givenKey)
@@ -44,13 +44,15 @@ void add(elementListy *&head,int givenKey)
 	} while (actual != head);
 
 	//przypisanie wartoœci nowemu elementowi listy:
-	elementListy *newOne;
+	listElement *newOne;
 	if (head->key == NULL) {
 		newOne = head;
 	}
 	else 
-		newOne = new elementListy;
+		newOne = new listElement;
 
+
+	//TODO: delete tail and put new element on the correct place
 	tail->next = newOne;
 
 	newOne->key = givenKey;
@@ -61,7 +63,7 @@ void add(elementListy *&head,int givenKey)
 	tail = newOne;
 }
 
-void insertElements(elementListy *&head, int X) {
+void insertElements(listElement *&head, int X) {
 	for (int i = 0; i < X; i++)
 	{
 		add(head, (rand() % 19990 + 10));
@@ -69,11 +71,11 @@ void insertElements(elementListy *&head, int X) {
 }
 
 // Wyœwietla Y pierwszych elementów :
-void show(elementListy *&head, int Y) {
+void show(listElement *&head, int Y) {
 
 	//sprawdzenie czy element znajduje siê na liscie:
 
-	elementListy *actual = head;
+	listElement *actual = head;
 	for (int i = 0; i < Y; i++)
 	{
 		cout << "Key: " << actual->key << " Number: " << actual->number << " Sign:" << actual->sign << endl;
@@ -84,10 +86,10 @@ void show(elementListy *&head, int Y) {
 	}
 }
 
-void deleteList(elementListy *&head)
+void deleteList(listElement *&head)
 {
-	elementListy *actual = head;
-	elementListy *temp = actual->next;
+	listElement *actual = head;
+	listElement *temp = actual->next;
 
 	do
 	{
@@ -104,9 +106,9 @@ void deleteList(elementListy *&head)
 
 }
 
-void find(elementListy *&head, int key)
+void find(listElement *&head, int key)
 {
-	elementListy *actual = head;
+	listElement *actual = head;
 	do
 	{
 		/*
@@ -125,10 +127,10 @@ void find(elementListy *&head, int key)
 	cout << "\nNot founded element with key = " << key << endl;
 }
 
-void deleteElement(elementListy *&head, int key)
+void deleteElement(listElement *&head, int key)
 {
-	elementListy *actual = head;
-	elementListy *prev = actual;
+	listElement *actual = head;
+	listElement *prev = actual;
 	do
 	{
 		if (key == actual->key)
@@ -155,7 +157,7 @@ int main()
 
 	//CONTENT :
 
-	elementListy *list;
+	listElement *list;
 
 	initialize(list);
 
