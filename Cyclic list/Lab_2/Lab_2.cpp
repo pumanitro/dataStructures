@@ -42,8 +42,15 @@ void add(listElement *&head,int givenKey)
 
 		prev = actual;
 		actual = actual->next;
-
-		if ((actual->key > givenKey)&&(prev->key < givenKey))
+		
+		//Case when we hadn't any element on the list :
+		if (head->key == NULL)
+		{
+			head->key = givenKey;
+			head->number = rand() % 500;
+			head->sign = 'Z';
+		}
+		else if ((actual->key > givenKey)&&(prev->key < givenKey))
 		{
 
 		}
