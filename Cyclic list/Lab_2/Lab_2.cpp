@@ -17,18 +17,21 @@ struct listElement {
 	listElement *next;
 };
 
+listElement *tail;
+
 void initialize(listElement *&head) {
 	head = new listElement;
 	head->key = NULL;
 	head->number = NULL;
 	head->sign = NULL;
 	head->next = head;
+	tail = head;
 }
 
 void add(listElement *&head,int givenKey) 
 {
 	//sprawdzenie czy element znajduje siê na liscie:
-	listElement *actual = head, *prev,*temp, *newOne;
+	listElement *actual = head, *prev,*temp;
 	do
 	{
 		if (actual->key == givenKey)
@@ -46,6 +49,8 @@ void add(listElement *&head,int givenKey)
 			head->key = givenKey;
 			head->number = rand() % 500;
 			head->sign = 'Z';
+
+			break;
 		}
 		else if (givenKey < head->key)
 		{
