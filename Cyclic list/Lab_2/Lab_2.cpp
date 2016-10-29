@@ -31,7 +31,7 @@ void initialize(listElement *&head) {
 void add(listElement *&head,int givenKey) 
 {
 	//sprawdzenie czy element znajduje siê na liscie:
-	listElement *actual = head, *prev,*temp;
+	listElement *actual = head, *prev = tail,*temp;
 	do
 	{
 		if (actual->key == givenKey)
@@ -39,9 +39,6 @@ void add(listElement *&head,int givenKey)
 			cout << "Element with given key already exist!\n";
 			return;
 		}
-
-		prev = actual;
-		actual = actual->next;
 		
 		//Case when we haven't any element on the list :
 		if (head->key == NULL)
@@ -62,8 +59,12 @@ void add(listElement *&head,int givenKey)
 			head->number = rand() % 500;
 			head->sign = 'Z';
 			head->next = temp;
+
+			tail->next = head;
+
+			break;
 		}
-		else if (actual->key > givenKey)
+		else if (givenKey < actual->key)
 		{
 			temp = new listElement;
 
@@ -76,7 +77,7 @@ void add(listElement *&head,int givenKey)
 
 			break;
 		}
-		else if ((actual->next == head) && (actual->key < givenKey))
+		else if ((actual->next == head) && (givenKey > actual->key))
 		{
 			temp = new listElement;
 
@@ -87,8 +88,13 @@ void add(listElement *&head,int givenKey)
 			actual->next = temp;
 			temp->next = head;
 
+			tail = temp;
+
 			break;
 		}
+
+		prev = actual;
+		actual = actual->next;
 
 	} while (actual != head);
 
