@@ -30,7 +30,6 @@ void initialize(listElement *&head) {
 
 void add(listElement *&head,int givenKey) 
 {
-	//sprawdzenie czy element znajduje siê na liscie:
 	listElement *actual = head, *prev = tail,*temp;
 	do
 	{
@@ -130,16 +129,12 @@ void deleteList(listElement *&head)
 
 	do
 	{
-		/*
-		cout << "\n\n" << actual << endl;
-		cout << " " << temp << endl;
-		*/
-
 		temp = actual->next;
 		delete actual;
 		actual = temp;
 
 	} while (actual != head);
+
 
 }
 
@@ -148,10 +143,6 @@ void find(listElement *&head, int key)
 	listElement *actual = head;
 	do
 	{
-		/*
-		cout << "\n\n" << actual << endl;
-		cout << " " << temp << endl;
-		*/
 		if (key == actual->key)
 		{
 			cout << "\nFounded >> Key: " << actual->key << " Number: " << actual->number << " Sign:" << actual->sign << endl;
@@ -164,22 +155,41 @@ void find(listElement *&head, int key)
 	cout << "\nNot founded element with key = " << key << endl;
 }
 
-void deleteElement(listElement *&head, int key)
+void deleteElement(listElement *&head, int givenKey)
 {
-	listElement *actual = head;
-	listElement *prev = actual;
+	listElement *actual = head, *temp, *prev = tail;
+
 	do
 	{
-		if (key == actual->key)
+		if (givenKey == head->key)
 		{
-			cout << "\nFounded >> Key: " << actual->key << " Number: " << actual->number << " Sign:" << actual->sign << endl;
+			temp = head;
+			delete head;
+			head = temp->next;
+
+			tail->next = head;
+
+			cout << "\nDeleted (head) >> Key: " << actual->key << " Number: " << actual->number << " Sign:" << actual->sign << endl;
 			return;
 		}
+		else if (givenKey == actual->key)
+		{
+			if (actual == tail) tail = prev;
+
+			prev->next = actual->next;
+			delete actual;
+
+			cout << "\nDeleted >> Key: " << actual->key << " Number: " << actual->number << " Sign:" << actual->sign << endl;
+			return;
+		}
+
+		prev = actual;
 		actual = actual->next;
 
 	} while (actual != head);
 
-	cout << "\nNot founded element with key = " << key << endl;
+	cout << "\nNot founded element with key = " << givenKey << endl;
+
 }
 
 int main()
@@ -206,7 +216,7 @@ int main()
 
 	show(list, 15);
 
-	find(list, 5);
+	find(list, 3);
 
 	deleteList(list);
 
