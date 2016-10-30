@@ -14,13 +14,30 @@ struct treeElement {
 	char word[100];
 };
 
+void randomWord(char *word) {
+
+	for (int i = 0; i < 100; i++)
+	{
+		word[i] = rand() % 26 + 'a';
+	}
+
+	word[100] = NULL;
+}
+
 void initialize(treeElement *&root) {
 	root = new treeElement;
 	root->key = NULL;
 }
 
 void addNode(treeElement *&root,int givenKey) {
-
+	if (root->key == NULL)
+	{
+		root->key = givenKey;
+		root->left = NULL;
+		root->right = NULL;
+		randomWord(root->word);
+	}
+	cout << "Root >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
 }
 
 int main()
@@ -51,6 +68,8 @@ int main()
 	treeElement *root;
 	
 	initialize(root);
+
+	addNode(root,10);
 
 	//Time stop:
 	end = clock();
