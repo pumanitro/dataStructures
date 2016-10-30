@@ -83,6 +83,19 @@ void addNode(treeElement *&root,int givenKey) {
 	cout << "Root >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
 }
 
+int preorderCounter = 0;
+
+void showPreorder(treeElement *&root)
+{
+	if (root)
+	{
+		cout << root->key << " - ";
+		showPreorder(root->left);
+		showPreorder(root->right);
+		//preorderCounter++;
+	}
+}
+
 int main()
 {
 	/* initialize random seed: */
@@ -114,6 +127,12 @@ int main()
 
 	addNode(root, 10);
 	addNode(root, 12);
+	addNode(root, 3);
+	addNode(root, 14);
+	addNode(root, 5);
+	addNode(root, 16);
+
+	showPreorder(root);
 
 	//Time stop:
 	end = clock();
