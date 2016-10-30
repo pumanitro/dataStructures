@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <time.h>       /* time */
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -37,6 +38,48 @@ void addNode(treeElement *&root,int givenKey) {
 		root->right = NULL;
 		randomWord(root->word);
 	}
+	else 
+	{
+		treeElement *actual = root;
+		treeElement *newOne;
+
+		while (1)
+		{
+			if (givenKey == actual->key)
+			{
+				cout << "Node with given key already exist!\n";
+				return;
+			}
+
+			if ((actual->left == NULL) && (actual->right == NULL)) 
+			{
+				newOne = new treeElement;
+
+				newOne->key = givenKey;
+				newOne->left = NULL;
+				newOne->right = NULL;
+				randomWord(newOne->word);
+
+				if (givenKey < actual->key)
+				{
+					actual->left = newOne;
+				}
+				else
+				{
+					actual->right = newOne;
+				}
+				return;
+			}
+
+			//We are going down:
+			if (givenKey < actual->key)
+				actual = actual->left;
+			else
+				actual = actual->right;
+		} 
+	}
+
+
 	cout << "Root >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
 }
 
@@ -69,7 +112,8 @@ int main()
 	
 	initialize(root);
 
-	addNode(root,10);
+	addNode(root, 10);
+	addNode(root, 12);
 
 	//Time stop:
 	end = clock();
