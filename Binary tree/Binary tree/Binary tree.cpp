@@ -14,7 +14,14 @@ struct treeElement {
 	char word[100];
 };
 
+void initialize(treeElement *&root) {
+	root = new treeElement;
+	root->key = NULL;
+}
 
+void addNode(treeElement *&root,int givenKey) {
+
+}
 
 int main()
 {
@@ -41,8 +48,9 @@ int main()
 
 	//CONTENT :
 
-
+	treeElement *root;
 	
+	initialize(root);
 
 	//Time stop:
 	end = clock();
