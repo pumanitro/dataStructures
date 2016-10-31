@@ -222,15 +222,20 @@ int main()
 
 	initialize(list);
 
+	/*
 	add(list, 5);
 	add(list, 6);
 	add(list, 7);
 
 	show(list, 10);
 
+
 	deleteElement(list, 6);
 
 	show(list, 10);
+	*/
+
+	add(list, k1);
 
 	insertElements(list,X);
 
