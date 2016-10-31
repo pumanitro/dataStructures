@@ -51,31 +51,8 @@ void addNode(treeElement *&root,int givenKey) {
 				return;
 			}
 
-			if ((actual->left == NULL) && (actual->right == NULL)) 
-			{
-				newOne = new treeElement;
+			if(givenKey<actual->key)
 
-				newOne->key = givenKey;
-				newOne->left = NULL;
-				newOne->right = NULL;
-				randomWord(newOne->word);
-
-				if (givenKey < actual->key)
-				{
-					actual->left = newOne;
-				}
-				else
-				{
-					actual->right = newOne;
-				}
-				return;
-			}
-
-			//We are going down:
-			if (givenKey < actual->key)
-				actual = actual->left;
-			else
-				actual = actual->right;
 		} 
 	}
 

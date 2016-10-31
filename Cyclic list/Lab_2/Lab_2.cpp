@@ -1,3 +1,6 @@
+//SDIZO IS1 213A LAB02
+//Patryk Janik
+//pjanik@wi.zut.pl
 // Lab_2.cpp : Defines the entry point for the console application.
 //
 
@@ -208,7 +211,7 @@ int main()
 	FILE* fp;
 	errno_t err;
 
-	err = fopen_s(&fp,"inputData.txt", "r");
+	err = fopen_s(&fp,"inlab02.txt", "r");
 	if (err != 0)
 		return -1;
 	fscanf_s(fp, "%d %d %d %d %d %d", &X, &k1, &k2, &k3, &k4, &k5);
