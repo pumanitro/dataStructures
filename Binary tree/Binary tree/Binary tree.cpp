@@ -15,16 +15,6 @@ struct treeElement {
 	char word[100];
 };
 
-void randomWord(char *word) {
-
-	for (int i = 0; i < 100; i++)
-	{
-		word[i] = rand() % 26 + 'a';
-	}
-
-	word[100] = NULL;
-}
-
 void initialize(treeElement *&root) {
 	root = new treeElement;
 	root->key = NULL;
@@ -37,7 +27,14 @@ void addNode(treeElement *&root,int givenKey) {
 	temp->key = givenKey;
 	temp->left = NULL;
 	temp->right = NULL;
-	randomWord(temp->word);
+
+
+	for (int i = 0; i < 100; i++)
+	{
+		temp->word[i] = rand() % 26 + 'a';
+	}
+
+	temp->word[100] = NULL;
 
 	if (root->key == NULL)
 	{
@@ -79,8 +76,7 @@ void addNode(treeElement *&root,int givenKey) {
 		} 
 	}
 
-
-	cout << "Root >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
+	//cout << "Root >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
 }
 
 int preorderCounter = 0;
@@ -89,10 +85,35 @@ void showPreorder(treeElement *&root)
 {
 	if (root)
 	{
-		cout << root->key << " - ";
+		//cout << root->key << " - ";
+
+		cout << "\nShowed >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
 		showPreorder(root->left);
 		showPreorder(root->right);
 	}
+}
+
+void randomElPutting(treeElement *&root, int X)
+{
+
+}
+
+treeElement* findTreeEl(treeElement *&root, int X)
+{
+	treeElement *actual = root;
+	bool found = false;
+
+	while ((actual!=NULL) && found==false)
+	{
+		if (actual->key = X) found = true;
+		else if (actual->key < X) actual = actual->right;
+		else actual = actual->left;
+	}
+
+	cout << "\nI found >> Key: " << actual->key << " Left: " << actual->left << " Right: " << actual->right << "\nWord: " << actual->word << "\nWord: " << actual->word << endl;
+
+	return(actual);
+
 }
 
 int main()
@@ -132,6 +153,9 @@ int main()
 	addNode(root, 16);
 
 	showPreorder(root);
+
+	findTreeEl(root, 14);
+	findTreeEl(root, 5);
 
 	//Time stop:
 	end = clock();
