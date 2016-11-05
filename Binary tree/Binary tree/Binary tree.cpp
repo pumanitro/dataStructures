@@ -76,7 +76,7 @@ void addNode(treeElement *&root,int givenKey) {
 			}
 		} 
 	}
-	cout << "Root >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
+	//cout << "Root >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
 
 }
 
@@ -111,7 +111,8 @@ treeElement* findTreeEl(treeElement *&root, int X)
 		else actual = actual->left;
 	}
 
-	cout << "\nActual >> Key: " << actual->key << " Left: " << actual->left << " Right: " << actual->right << "\nWord: " << actual->word << endl;
+	if(found) cout << "\nFound >> Key: " << actual->key << " Left: " << actual->left << " Right: " << actual->right << "\nWord: " << actual->word << endl;
+	else cout << "\nNot found element with key "<< X << endl;
 	return(actual);
 
 }
@@ -155,10 +156,8 @@ int main()
 	showPreorder(root);
 
 	findTreeEl(root, 14);
+	findTreeEl(root, 1);
 
-	//cout << "KEY: " << findTreeEl(root, 14)->key << " LEFT: " << findTreeEl(root, 14)->left << " RIGHT: " << findTreeEl(root, 14)->key << "\nWORD: " << findTreeEl(root, 14)->word << endl;
-
-	//findTreeEl(root, 5);
 
 	//Time stop:
 	end = clock();
