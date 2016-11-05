@@ -86,13 +86,9 @@ void showPreorder(treeElement *&root)
 	if (root)
 	{
 		cout << root->key << " - ";
-
-		showPreorder(root);
 		showPreorder(root->left);
 		showPreorder(root->right);
-		//preorderCounter++;
 	}
-	return;
 }
 
 int main()
@@ -125,6 +121,7 @@ int main()
 	initialize(root);
 
 	addNode(root, 10);
+	showPreorder(root);
 	addNode(root, 12);
 	addNode(root, 3);
 	addNode(root, 14);
