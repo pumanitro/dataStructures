@@ -58,13 +58,19 @@ void addNode(treeElement *&root,int givenKey) {
 
 			if (givenKey < actual->key)
 			{
-				if(actual->left == NULL)
+				if (actual->left == NULL)
+				{
 					actual->left = temp;
+					return;
+				}
 			}
 			else
 			{
 				if (actual->right == NULL)
+				{
 					actual->right = temp;
+					return;
+				}
 			}
 		} 
 	}
