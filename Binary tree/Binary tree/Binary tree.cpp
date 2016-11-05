@@ -28,13 +28,14 @@ void addNode(treeElement *&root,int givenKey) {
 	temp->left = NULL;
 	temp->right = NULL;
 
-
 	for (int i = 0; i < 100; i++)
 	{
 		temp->word[i] = rand() % 26 + 'a';
 	}
 
 	temp->word[100] = NULL;
+
+	//cout << "Temp >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
 
 	if (root->key == NULL)
 	{
@@ -75,8 +76,8 @@ void addNode(treeElement *&root,int givenKey) {
 			}
 		} 
 	}
+	cout << "Root >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
 
-	//cout << "Root >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
 }
 
 int preorderCounter = 0;
@@ -85,9 +86,9 @@ void showPreorder(treeElement *&root)
 {
 	if (root)
 	{
-		//cout << root->key << " - ";
+		cout << root->key << " - ";
 
-		cout << "\nShowed >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
+		//cout << "\nShowed >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
 		showPreorder(root->left);
 		showPreorder(root->right);
 	}
@@ -99,19 +100,18 @@ void randomElPutting(treeElement *&root, int X)
 }
 
 treeElement* findTreeEl(treeElement *&root, int X)
-{
+{	
 	treeElement *actual = root;
 	bool found = false;
 
 	while ((actual!=NULL) && found==false)
 	{
-		if (actual->key = X) found = true;
+		if (actual->key == X) found = true;
 		else if (actual->key < X) actual = actual->right;
 		else actual = actual->left;
 	}
 
-	cout << "\nI found >> Key: " << actual->key << " Left: " << actual->left << " Right: " << actual->right << "\nWord: " << actual->word << "\nWord: " << actual->word << endl;
-
+	cout << "\nActual >> Key: " << actual->key << " Left: " << actual->left << " Right: " << actual->right << "\nWord: " << actual->word << endl;
 	return(actual);
 
 }
@@ -155,7 +155,10 @@ int main()
 	showPreorder(root);
 
 	findTreeEl(root, 14);
-	findTreeEl(root, 5);
+
+	//cout << "KEY: " << findTreeEl(root, 14)->key << " LEFT: " << findTreeEl(root, 14)->left << " RIGHT: " << findTreeEl(root, 14)->key << "\nWORD: " << findTreeEl(root, 14)->word << endl;
+
+	//findTreeEl(root, 5);
 
 	//Time stop:
 	end = clock();
