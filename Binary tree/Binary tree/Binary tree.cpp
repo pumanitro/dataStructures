@@ -67,10 +67,13 @@ void showPreorder(treeElement *&root)
 	if (root)
 	{
 		cout << root->key << " - ";
+
+		showPreorder(root);
 		showPreorder(root->left);
 		showPreorder(root->right);
 		//preorderCounter++;
 	}
+	return;
 }
 
 int main()
