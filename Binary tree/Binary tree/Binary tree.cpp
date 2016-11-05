@@ -63,6 +63,8 @@ void addNode(treeElement *&root,int givenKey) {
 					actual->left = temp;
 					return;
 				}
+				else
+					actual = actual->left;
 			}
 			else
 			{
@@ -71,6 +73,8 @@ void addNode(treeElement *&root,int givenKey) {
 					actual->right = temp;
 					return;
 				}
+				else
+					actual = actual->right;
 			}
 		} 
 	}
@@ -121,7 +125,6 @@ int main()
 	initialize(root);
 
 	addNode(root, 10);
-	showPreorder(root);
 	addNode(root, 12);
 	addNode(root, 3);
 	addNode(root, 14);
