@@ -31,28 +31,41 @@ void initialize(treeElement *&root) {
 }
 
 void addNode(treeElement *&root,int givenKey) {
+	treeElement	*temp;
+	temp = new treeElement;
+
+	temp->key = givenKey;
+	temp->left = NULL;
+	temp->right = NULL;
+	randomWord(temp->word);
+
 	if (root->key == NULL)
 	{
-		root->key = givenKey;
-		root->left = NULL;
-		root->right = NULL;
-		randomWord(root->word);
+		root = temp;
 	}
 	else 
 	{
 		treeElement *actual = root;
-		treeElement *newOne;
 
 		while (1)
 		{
 			if (givenKey == actual->key)
 			{
 				cout << "Node with given key already exist!\n";
+				delete temp;
 				return;
 			}
 
-			if(givenKey<actual->key)
-
+			if (givenKey < actual->key)
+			{
+				if(actual->left == NULL)
+					actual->left = temp;
+			}
+			else
+			{
+				if (actual->right == NULL)
+					actual->right = temp;
+			}
 		} 
 	}
 
