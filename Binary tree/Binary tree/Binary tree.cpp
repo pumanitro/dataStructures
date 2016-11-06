@@ -94,11 +94,6 @@ void showPreorder(treeElement *&root)
 	}
 }
 
-void randomElPutting(treeElement *&root, int X)
-{
-
-}
-
 treeElement* findTreeEl(treeElement *&root, int X)
 {	
 	treeElement *actual = root;
@@ -111,10 +106,25 @@ treeElement* findTreeEl(treeElement *&root, int X)
 		else actual = actual->left;
 	}
 
-	if(found) cout << "\nFound >> Key: " << actual->key << " Left: " << actual->left << " Right: " << actual->right << "\nWord: " << actual->word << endl;
-	else cout << "\nNot found element with key "<< X << endl;
+	//if(found) cout << "\nFound >> Key: " << actual->key << " Left: " << actual->left << " Right: " << actual->right << "\nWord: " << actual->word << endl;
+	//else cout << "\nNot found an element with key "<< X << endl;
 	return(actual);
 
+}
+
+void randomElPutting(treeElement *&root, int amount)
+{
+	int key = rand() % 18989 + 11;
+
+	for (int i = 0; i < amount; i++)
+	{
+		while (findTreeEl(root, key) != NULL)
+		{
+			key = rand() % 18989 + 11;
+		}
+
+		addNode(root, key);
+	}
 }
 
 int main()
@@ -147,11 +157,15 @@ int main()
 	initialize(root);
 
 	addNode(root, 10);
+	/*
 	addNode(root, 12);
 	addNode(root, 3);
 	addNode(root, 14);
 	addNode(root, 5);
 	addNode(root, 16);
+	*/
+
+	randomElPutting(root, 5);
 
 	showPreorder(root);
 
