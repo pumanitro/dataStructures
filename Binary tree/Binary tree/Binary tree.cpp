@@ -82,16 +82,63 @@ void addNode(treeElement *&root,int givenKey) {
 
 int preorderCounter = 0;
 
-void showPreorder(treeElement *&root)
+void showPreorderRec(treeElement *&root)
 {
 	if (root)
 	{
 		cout << root->key << " - ";
+		preorderCounter++;
 
 		//cout << "\nShowed >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
-		showPreorder(root->left);
-		showPreorder(root->right);
+		showPreorderRec(root->left);
+		showPreorderRec(root->right);
 	}
+}
+
+int inorderCounter = 0;
+
+void showInorderRec(treeElement *&root)
+{
+	if (root)
+	{
+		inorderCounter++;
+
+		showInorderRec(root->left);
+		cout << root->key << " - ";
+		showInorderRec(root->right);
+	}
+}
+
+int postorderCounter = 0;
+
+void showPostorderRec(treeElement *&root)
+{
+	if (root)
+	{
+		postorderCounter++;
+
+		showPostorderRec(root->left);
+		showPostorderRec(root->right);
+		cout << root->key << " - ";
+	}
+}
+
+void showPreorder(treeElement *&root) 
+{
+	showPreorderRec(root);
+	cout << "\nPreorder occurrences >> " << preorderCounter << endl;
+}
+
+void showInorder(treeElement *&root)
+{
+	showInorderRec(root);
+	cout << "\nInorder occurrences >> " << inorderCounter << endl;
+}
+
+void showPostorder(treeElement *&root)
+{
+	showPostorderRec(root);
+	cout << "\nPostorder occurrences >> " << postorderCounter << endl;
 }
 
 treeElement* findTreeEl(treeElement *&root, int X)
@@ -168,6 +215,8 @@ int main()
 	randomElPutting(root, 5);
 
 	showPreorder(root);
+	showInorder(root);
+	showPostorder(root);
 
 	findTreeEl(root, 14);
 	findTreeEl(root, 1);
