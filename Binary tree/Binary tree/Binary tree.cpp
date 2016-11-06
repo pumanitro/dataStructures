@@ -174,6 +174,77 @@ void randomElPutting(treeElement *&root, int amount)
 	}
 }
 
+void deleteEl(treeElement *&root, int givenKey)
+{
+	treeElement *parent = NULL, *actual = root;
+
+	//Parent and key search :
+	while ((givenKey != actual->key)&&(actual != NULL))
+	{
+		parent = actual;
+		if (givenKey > actual->key) actual = actual->right;
+		else actual = actual->left;
+	}
+
+	//There isn't given key - return
+	if (actual == NULL) return;
+
+	//Case when deleted element is a leaf:
+	if ((actual->left == NULL) && (actual->right == NULL))
+	{
+		if (actual == root)
+		{
+			delete actual;
+			root = NULL;
+			return;
+		}
+		if (parent->left == actual)
+		{
+			delete actual;
+			parent->left = NULL;
+		}
+		else 
+		{
+			delete actual;
+			parent->right = NULL;
+		}
+		return;
+	}
+
+	//Case when deleted element have only right subtree:
+	if (actual->left == NULL)
+	{
+		if (parent->right == actual)
+		{
+			parent->right = actual->right;
+			delete actual;
+		}
+		else
+		{
+			parent->left = actual->right;
+			delete actual;
+		}
+		return;
+	}
+
+	//Case when deleted element have only left subtree:
+	if (actual->right == NULL)
+	{
+		if (parent->right == actual)
+		{
+			parent->right = actual->left;
+			delete actual;
+		}
+		else
+		{
+			parent->left = actual->left;
+			delete actual;
+		}
+		return;
+	}
+
+}
+
 int main()
 {
 	/* initialize random seed: */
