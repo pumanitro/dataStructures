@@ -12,12 +12,11 @@ struct treeElement {
 	int key;
 	treeElement *left;
 	treeElement *right;
-	char word[100];
+	char *word;
 };
 
 void initialize(treeElement *&root) {
-	root = new treeElement;
-	root->key = NULL;
+	root = NULL;
 }
 
 void addNode(treeElement *&root,int givenKey) {
@@ -28,16 +27,20 @@ void addNode(treeElement *&root,int givenKey) {
 	temp->left = NULL;
 	temp->right = NULL;
 
+	char *word = new char[100];
+
 	for (int i = 0; i < 100; i++)
 	{
-		temp->word[i] = rand() % 26 + 'a';
+		word[i] = rand() % 26 + 'a';
 	}
-
-	temp->word[100] = NULL;
+	
+	word[100] = NULL;
+	
+	temp->word = word;
 
 	//cout << "Temp >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
 
-	if (root->key == NULL)
+	if (root == NULL)
 	{
 		root = temp;
 	}
@@ -187,7 +190,13 @@ void deleteEl(treeElement *&root, int givenKey)
 	}
 
 	//There isn't given key - return
-	if (actual == NULL) return;
+	if (actual == NULL) 
+	{
+		cout << "\nDeleted element does'nt exist!" << endl;
+		return;
+	}
+
+	cout << "\nDeleted element >> Key: " << actual->key << " Left: " << actual->left << " Right: " << actual->right << "\nWord: " << actual->word << endl;
 
 	//Case when deleted element is a leaf:
 	if ((actual->left == NULL) && (actual->right == NULL))
@@ -198,50 +207,76 @@ void deleteEl(treeElement *&root, int givenKey)
 			root = NULL;
 			return;
 		}
-		if (parent->left == actual)
-		{
-			delete actual;
-			parent->left = NULL;
-		}
-		else 
-		{
-			delete actual;
-			parent->right = NULL;
-		}
+
+		if (parent->left == actual) parent->left = NULL;
+		else parent->right = NULL;
+
+		delete actual;
+		actual = NULL;
+
 		return;
 	}
 
 	//Case when deleted element have only right subtree:
 	if (actual->left == NULL)
 	{
-		if (parent->right == actual)
-		{
-			parent->right = actual->right;
-			delete actual;
-		}
-		else
-		{
-			parent->left = actual->right;
-			delete actual;
-		}
+		if (parent->right == actual) parent->right = actual->right;
+		else parent->left = actual->right;
+
+		delete actual;
+		actual = NULL;
 		return;
 	}
 
 	//Case when deleted element have only left subtree:
 	if (actual->right == NULL)
 	{
-		if (parent->right == actual)
-		{
-			parent->right = actual->left;
-			delete actual;
-		}
-		else
-		{
-			parent->left = actual->left;
-			delete actual;
-		}
+		if (parent->right == actual) parent->right = actual->left;
+		else parent->left = actual->left;
+
+		delete actual;
+		actual = NULL;
 		return;
 	}
+
+	//Other cases with predecessor:
+
+	treeElement *preparent = actual, *child = actual->left;
+
+	//Search for the deepest right element after first left :
+	while (child->right != NULL)
+	{
+		preparent = child;
+		child = child->right;
+	}
+
+	//predecessor is left descendant of deleted node: 
+	if (child == actual->left)
+	{
+		if (parent->right == actual) parent->right = child;
+		else parent->left = child;
+
+		delete actual;
+		actual = NULL;
+		return;
+	}
+
+	//predecessor isn't left descendant of actual node but he is his grandson or great...grandson:
+
+	treeElement *grandChild = child->left;
+
+	if (preparent->right == child) preparent->right = grandChild;
+	else preparent->left = grandChild;
+
+	child->left = actual->left;
+
+	if (parent->right == actual) parent->right = child;
+	else parent->left = child;
+
+	delete actual;
+	root = NULL;
+
+	return;
 
 }
 
@@ -274,14 +309,14 @@ int main()
 	
 	initialize(root);
 
-	addNode(root, 10);
-	/*
+	addNode(root, 1);
+
+	
 	addNode(root, 12);
 	addNode(root, 3);
 	addNode(root, 14);
 	addNode(root, 5);
 	addNode(root, 16);
-	*/
 
 	randomElPutting(root, 5);
 
@@ -291,6 +326,12 @@ int main()
 
 	findTreeEl(root, 14);
 	findTreeEl(root, 1);
+	findTreeEl(root, 1);
+	
+
+	deleteEl(root, 1);
+
+	showPreorder(root);
 
 
 	//Time stop:
