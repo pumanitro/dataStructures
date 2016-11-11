@@ -217,6 +217,31 @@ void deleteEl(treeElement *&root, int givenKey)
 		return;
 	}
 
+	if ((parent == NULL) && (actual == root))
+	{
+		if (actual->left == NULL)
+		{
+			root = actual->right;
+			delete actual;
+			actual = NULL;
+			return;
+		}
+		if (actual->right == NULL)
+		{
+			root = actual->left;
+			delete actual;
+			actual = NULL;
+			return;
+		}
+
+		root = actual->right;
+		root->left = actual->left;
+		delete actual;
+		actual = NULL;
+		return;
+
+	}
+
 	//Case when deleted element have only right subtree:
 	if (actual->left == NULL)
 	{
@@ -311,14 +336,17 @@ int main()
 
 	addNode(root, 1);
 
-	
 	addNode(root, 12);
 	addNode(root, 3);
+
+	
 	addNode(root, 14);
 	addNode(root, 5);
 	addNode(root, 16);
 
 	randomElPutting(root, 5);
+
+	
 
 	showPreorder(root);
 	showInorder(root);
