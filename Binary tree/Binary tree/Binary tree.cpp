@@ -43,6 +43,7 @@ void addNode(treeElement *&root,int givenKey) {
 	if (root == NULL)
 	{
 		root = temp;
+		cout << "\nAdded element >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
 	}
 	else 
 	{
@@ -62,6 +63,7 @@ void addNode(treeElement *&root,int givenKey) {
 				if (actual->left == NULL)
 				{
 					actual->left = temp;
+					cout << "\nAdded element >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
 					return;
 				}
 				else
@@ -72,6 +74,7 @@ void addNode(treeElement *&root,int givenKey) {
 				if (actual->right == NULL)
 				{
 					actual->right = temp;
+					cout << "\nAdded element >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
 					return;
 				}
 				else
@@ -130,6 +133,7 @@ void showPostorderRec(treeElement *&root)
 void showPreorder(treeElement *&root) 
 {
 	preorderCounter = 0;
+	cout << endl;
 	showPreorderRec(root);
 	cout << "\nPreorder occurrences >> " << preorderCounter << endl;
 }
@@ -137,6 +141,7 @@ void showPreorder(treeElement *&root)
 void showInorder(treeElement *&root)
 {
 	inorderCounter = 0;
+	cout << endl;
 	showInorderRec(root);
 	cout << "\nInorder occurrences >> " << inorderCounter << endl;
 }
@@ -145,6 +150,7 @@ void showPostorder(treeElement *&root)
 {
 
 	postorderCounter = 0;
+	cout << endl;
 	showPostorderRec(root);
 	cout << "\nPostorder occurrences >> " << postorderCounter << endl;
 }
@@ -187,7 +193,7 @@ void deleteEl(treeElement *&root, int givenKey)
 	treeElement *parent = NULL, *actual = root;
 
 	//Parent and key search :
-	while ((givenKey != actual->key)&&(actual != NULL))
+	while ((actual != NULL)&&(givenKey != actual->key))
 	{
 		parent = actual;
 		if (givenKey > actual->key) actual = actual->right;
@@ -197,7 +203,7 @@ void deleteEl(treeElement *&root, int givenKey)
 	//There isn't given key - return
 	if (actual == NULL) 
 	{
-		cout << "\nDeleted element does'nt exist!" << endl;
+		cout << "\nDeleted element doesn't exist!" << endl;
 		return;
 	}
 
@@ -331,7 +337,7 @@ int main()
 	fscanf_s(fp, "%d %d %d %d %d", &X, &k1, &k2, &k3, &k4);
 	fclose(fp);
 
-	printf("I read from file %d %d %d %d %d\n\n", X, k1, k2, k3, k4);
+	printf("I read from file %d %d %d %d %d\n", X, k1, k2, k3, k4);
 
 	//CONTENT :
 
@@ -339,31 +345,31 @@ int main()
 	
 	initialize(root);
 
-	addNode(root, 1);
+	deleteEl(root, k1); 
+	addNode(root, k1);
 
-	addNode(root, 12);
-	addNode(root, 3);
+	randomElPutting(root, X);
 
-	
-	addNode(root, 14);
-	addNode(root, 5);
-	addNode(root, 16);
-
-	randomElPutting(root, 500);
-
-	showPreorder(root);
 	showInorder(root);
-	showPostorder(root);
+	showPreorder(root);
 
-	findTreeEl(root, 14);
-	findTreeEl(root, 1);
-	findTreeEl(root, 1);
-	
+	addNode(root, k2);
+	showInorder(root);
 
-	deleteEl(root, 1);
+	addNode(root, k3);
+	addNode(root, k4);
+
+	deleteEl(root, k1);
 
 	showPreorder(root);
 
+	findTreeEl(root, k1);
+	deleteEl(root, k2);
+
+	showInorder(root);
+
+	deleteEl(root, k3);
+	deleteEl(root, k4);
 
 	//Time stop:
 	end = clock();
