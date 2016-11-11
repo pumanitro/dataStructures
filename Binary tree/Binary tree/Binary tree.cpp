@@ -246,7 +246,15 @@ void deleteEl(treeElement *&root, int givenKey)
 		}
 
 		root = actual->right;
-		root->left = actual->left;
+
+		treeElement *inside=actual->right;
+
+		while (inside->left != NULL)
+		{
+			inside = inside->left;
+		}
+
+		inside->left = actual->left;
 		delete actual;
 		actual = NULL;
 		return;
