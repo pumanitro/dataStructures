@@ -324,6 +324,32 @@ void deleteEl(treeElement *&root, int givenKey)
 
 }
 
+int memoryAmount = 0;
+
+void freeMemoryRec(treeElement *&root)
+{
+	if (root)
+	{
+		memoryAmount++;
+		treeElement *left = root->left, *right = root->right;
+
+		delete root;
+
+		//cout << "\nShowed >> Key: " << root->key << " Left: " << root->left << " Right: " << root->right << "\nWord: " << root->word << endl;
+		freeMemoryRec(left);
+		freeMemoryRec(right);
+	}
+}
+
+void freeMemory(treeElement *&root)
+{
+	memoryAmount = 0;
+	
+	freeMemoryRec(root);
+
+	cout << "\nReleased memory of " << memoryAmount  << " elements." << endl;
+}
+
 int main()
 {
 	/* initialize random seed: */
@@ -378,6 +404,8 @@ int main()
 
 	deleteEl(root, k3);
 	deleteEl(root, k4);
+
+	freeMemory(root);
 
 	//Time stop:
 	end = clock();
