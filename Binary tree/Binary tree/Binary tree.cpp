@@ -83,6 +83,7 @@ void addNode(treeElement *&root,int givenKey) {
 
 }
 
+
 int preorderCounter = 0;
 
 void showPreorderRec(treeElement *&root)
@@ -128,18 +129,22 @@ void showPostorderRec(treeElement *&root)
 
 void showPreorder(treeElement *&root) 
 {
+	preorderCounter = 0;
 	showPreorderRec(root);
 	cout << "\nPreorder occurrences >> " << preorderCounter << endl;
 }
 
 void showInorder(treeElement *&root)
 {
+	inorderCounter = 0;
 	showInorderRec(root);
 	cout << "\nInorder occurrences >> " << inorderCounter << endl;
 }
 
 void showPostorder(treeElement *&root)
 {
+
+	postorderCounter = 0;
 	showPostorderRec(root);
 	cout << "\nPostorder occurrences >> " << postorderCounter << endl;
 }
@@ -344,9 +349,7 @@ int main()
 	addNode(root, 5);
 	addNode(root, 16);
 
-	randomElPutting(root, 5);
-
-	
+	randomElPutting(root, 500);
 
 	showPreorder(root);
 	showInorder(root);
