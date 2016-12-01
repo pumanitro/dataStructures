@@ -29,7 +29,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DSW BST.cpp">
+    <ClCompile Include="Binary tree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
