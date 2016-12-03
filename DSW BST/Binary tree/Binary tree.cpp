@@ -15,9 +15,12 @@ struct treeElement {
 	char *word;
 };
 
+#pragma region Binary tree functions
+
 void initialize(treeElement *&root) {
 	root = NULL;
 }
+
 
 void addNode(treeElement *&root,int givenKey) {
 	treeElement	*temp;
@@ -350,6 +353,49 @@ void freeMemory(treeElement *&root)
 	cout << "\nReleased memory of " << memoryAmount  << " elements." << endl;
 }
 
+#pragma endregion
+//
+//void rotateRight(treeElement grandFather, treeElement parent, treeElement child)
+//{
+//	if (grandFather != NULL)
+//	{
+//		if(grandFather->right)
+//	}
+//
+//	return;
+//}
+
+#pragma region showTreeHeight
+
+int height, leftHeight, rightHeight,tempHeight;
+
+int getTreeHeightRec(treeElement *root)
+{
+	if (root == NULL) {
+		return -1;
+	}
+
+	int leftHeight = getTreeHeightRec(root->left);
+	int rightHeight = getTreeHeightRec(root->right);
+
+	if (leftHeight > rightHeight) {
+		return leftHeight + 1;
+	}
+	else {
+		return rightHeight + 1;
+	}
+}
+
+void showTreeHeight(treeElement *root)
+{
+	
+	height = getTreeHeightRec(root)+1;
+
+	cout << "\nTree height >> " << height << endl;
+}
+
+#pragma endregion
+
 int main()
 {
 	/* initialize random seed: */
@@ -361,17 +407,17 @@ int main()
 	begin = clock();
 
 	//File read:
-	int X, k1, k2, k3, k4;
+	int X1, X2;
 	FILE* fp;
 	errno_t err;
 
-	err = fopen_s(&fp, "inputData.txt", "r");
+	err = fopen_s(&fp, "inlab04.txt", "r");
 	if (err != 0)
 		return -1;
-	fscanf_s(fp, "%d %d %d %d %d", &X, &k1, &k2, &k3, &k4);
+	fscanf_s(fp, "%d %d", &X1, &X2);
 	fclose(fp);
 
-	printf("I read from file %d %d %d %d %d\n", X, k1, k2, k3, k4);
+	printf("I read from file %d %d\n", X1, X2);
 
 	//CONTENT :
 
@@ -379,31 +425,13 @@ int main()
 	
 	initialize(root);
 
-	deleteEl(root, k1); 
-	addNode(root, k1);
-
-	randomElPutting(root, X);
-
-	showInorder(root);
-	showPreorder(root);
-
-	addNode(root, k2);
-	showInorder(root);
-
-	addNode(root, k3);
-	addNode(root, k4);
-
-	deleteEl(root, k1);
-
-	showPreorder(root);
-
-	findTreeEl(root, k1);
-	deleteEl(root, k2);
+	addNode(root, 30);
+	addNode(root, 34);
+	addNode(root, 26);
 
 	showInorder(root);
 
-	deleteEl(root, k3);
-	deleteEl(root, k4);
+	showTreeHeight(root);
 
 	freeMemory(root);
 
