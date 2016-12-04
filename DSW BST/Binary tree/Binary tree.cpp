@@ -362,7 +362,7 @@ void rotateRight(treeElement *root, treeElement *grandFather, treeElement *paren
 {
 	if (grandFather != NULL)
 	{
-		if (grandFather->right = parent)
+		if (grandFather->right == parent)
 			grandFather->right = child;
 		else grandFather->left = child;
 	}
@@ -380,7 +380,7 @@ void rotateLeft(treeElement *root, treeElement *grandFather, treeElement *parent
 {
 	if (grandFather != NULL)
 	{
-		if (grandFather->right = parent)
+		if (grandFather->right == parent)
 			grandFather->right = child;
 		else grandFather->left = child;
 	}
@@ -524,26 +524,26 @@ int main()
 	//showTreeHeight(root);
 
 	addNode(root, 30);
-	addNode(root, 34);
-	addNode(root, 35);
-	addNode(root, 36);
-	addNode(root, 37);
-	addNode(root, 38);
-	addNode(root, 32);
-	addNode(root, 31);
+	addNode(root, 26);
+	addNode(root, 22);
+	addNode(root, 28);
+	addNode(root, 27);
+	addNode(root, 29);
+
 
 	showPreorder(root);
 	showTreeHeight(root);
 
-	treeToList(root);
+	rotateLeft(root, findTreeEl(root, 30), findTreeEl(root, 26), findTreeEl(root, 28));
+	//treeToList(root);
 
 	showPreorder(root);
 	showTreeHeight(root);
 
-	listToPerfectTree(root,getTreeHeight(root));
+	//listToPerfectTree(root,getTreeHeight(root));
 
-	showPreorder(root);
-	showTreeHeight(root);
+	//showPreorder(root);
+	//showTreeHeight(root);
 
 	//Wykonaj algorytm DSW:
 
