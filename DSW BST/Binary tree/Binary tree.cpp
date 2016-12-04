@@ -376,7 +376,7 @@ void rotateRight(treeElement *&root, treeElement *grandFather, treeElement *pare
 	return;
 }
 
-void rotateLeft(treeElement *root, treeElement *grandFather, treeElement *parent, treeElement *child)
+void rotateLeft(treeElement *&root, treeElement *grandFather, treeElement *parent, treeElement *child)
 {
 	if (grandFather != NULL)
 	{
@@ -418,7 +418,7 @@ void treeToList(treeElement *&root)
 
 }
 
-void listToPerfectTree(treeElement *root, int N) {
+void listToPerfectTree(treeElement *&root, int N) {
 	treeElement *grandFather = NULL, *temp = root, *temp2;
 	int m = 1;
 
@@ -526,10 +526,10 @@ int main()
 	addNode(root, 30);
 	addNode(root, 26);
 	addNode(root, 22);
-	/*addNode(root, 28);
+	addNode(root, 28);
 	addNode(root, 27);
 	addNode(root, 29);
-*/
+
 
 	showPreorder(root);
 	showTreeHeight(root);
@@ -540,10 +540,10 @@ int main()
 	showPreorder(root);
 	showTreeHeight(root);
 
-	//listToPerfectTree(root,getTreeHeight(root));
+	listToPerfectTree(root,getTreeHeight(root));
 
-	//showPreorder(root);
-	//showTreeHeight(root);
+	showPreorder(root);
+	showTreeHeight(root);
 
 	//Wykonaj algorytm DSW:
 
