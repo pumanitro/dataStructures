@@ -356,6 +356,8 @@ void freeMemory(treeElement *&root)
 
 #pragma endregion
 
+#pragma region Rotation
+
 void rotateRight(treeElement *root, treeElement *grandFather, treeElement *parent, treeElement *child)
 {
 	if (grandFather != NULL)
@@ -373,6 +375,26 @@ void rotateRight(treeElement *root, treeElement *grandFather, treeElement *paren
 
 	return;
 }
+
+void rotateLeft(treeElement *root, treeElement *grandFather, treeElement *parent, treeElement *child)
+{
+	if (grandFather != NULL)
+	{
+		if (grandFather->right = parent)
+			grandFather->right = child;
+		else grandFather->left = child;
+	}
+	else
+		root = child;
+
+	treeElement *temp = child->left;
+	child->left = parent;
+	parent->right = temp;
+
+	return;
+}
+
+#pragma endregion
 
 #pragma region showTreeHeight
 
