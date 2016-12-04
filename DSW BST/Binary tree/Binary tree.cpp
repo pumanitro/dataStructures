@@ -394,6 +394,9 @@ void rotateLeft(treeElement *root, treeElement *grandFather, treeElement *parent
 	return;
 }
 
+#pragma endregion
+
+
 void treeToList(treeElement *root)
 {
 	treeElement *grandFather = NULL, *temp = root, *temp2;
@@ -415,7 +418,39 @@ void treeToList(treeElement *root)
 
 }
 
-#pragma endregion
+void listToPerfectTree(treeElement *root, int N) {
+	treeElement *grandFather = NULL, *temp = root, *temp2;
+	int m = 1;
+
+	while (m <= N) m = 2 * m + 1;
+	m = m / 2;
+	
+	for (int i = 0; i < (N - m); i++)
+	{
+		temp2 = temp->right;
+		if (temp2 != NULL)
+		{
+			rotateLeft(root, grandFather, temp, temp->right);
+			grandFather = temp2;
+			temp = temp2->right;
+		}
+	}
+
+	while (m > 1)
+	{
+		m = m / 2;
+		grandFather = NULL;
+		temp = root;
+
+		for (int i = 0; i < m; i++)
+		{
+			temp2 = temp->right;
+			rotateLeft(root, grandFather, temp, temp->right);
+			grandFather = temp2;
+			temp = temp2->right;
+		}
+	}
+}
 
 #pragma region showTreeHeight
 
@@ -436,6 +471,14 @@ int getTreeHeightRec(treeElement *root)
 	else {
 		return rightHeight + 1;
 	}
+}
+
+int getTreeHeight(treeElement *root)
+{
+
+	height = getTreeHeightRec(root) + 1;
+
+	return height;
 }
 
 void showTreeHeight(treeElement *root)
@@ -493,6 +536,11 @@ int main()
 	showTreeHeight(root);
 
 	treeToList(root);
+
+	showPreorder(root);
+	showTreeHeight(root);
+
+	listToPerfectTree(root,getTreeHeight(root));
 
 	showPreorder(root);
 	showTreeHeight(root);
