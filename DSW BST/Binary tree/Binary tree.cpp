@@ -491,6 +491,13 @@ void showTreeHeight(treeElement *root)
 
 #pragma endregion
 
+void treeToPerfectTree(treeElement *&root)
+{
+	treeToList(root);
+	listToPerfectTree(root,getTreeHeight(root));
+}
+
+
 int main()
 {
 	/* initialize random seed: */
@@ -520,15 +527,15 @@ int main()
 	
 	initialize(root);
 
-	//randomElPutting(root, X1);
-	//showTreeHeight(root);
+	randomElPutting(root, X1);
+	showTreeHeight(root);
 
-	addNode(root, 30);
+	/*addNode(root, 30);
 	addNode(root, 26);
 	addNode(root, 22);
 	addNode(root, 28);
 	addNode(root, 27);
-	addNode(root, 29);
+	addNode(root, 29);*/
 
 
 	showPreorder(root);
