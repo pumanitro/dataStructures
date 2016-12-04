@@ -358,7 +358,7 @@ void freeMemory(treeElement *&root)
 
 #pragma region Rotation
 
-void rotateRight(treeElement *root, treeElement *grandFather, treeElement *parent, treeElement *child)
+void rotateRight(treeElement *&root, treeElement *grandFather, treeElement *parent, treeElement *child)
 {
 	if (grandFather != NULL)
 	{
@@ -397,7 +397,7 @@ void rotateLeft(treeElement *root, treeElement *grandFather, treeElement *parent
 #pragma endregion
 
 
-void treeToList(treeElement *root)
+void treeToList(treeElement *&root)
 {
 	treeElement *grandFather = NULL, *temp = root, *temp2;
 
@@ -526,16 +526,16 @@ int main()
 	addNode(root, 30);
 	addNode(root, 26);
 	addNode(root, 22);
-	addNode(root, 28);
+	/*addNode(root, 28);
 	addNode(root, 27);
 	addNode(root, 29);
-
+*/
 
 	showPreorder(root);
 	showTreeHeight(root);
 
-	rotateLeft(root, findTreeEl(root, 30), findTreeEl(root, 26), findTreeEl(root, 28));
-	//treeToList(root);
+	//rotateLeft(root, findTreeEl(root, 30), findTreeEl(root, 26), findTreeEl(root, 28));
+	treeToList(root);
 
 	showPreorder(root);
 	showTreeHeight(root);
