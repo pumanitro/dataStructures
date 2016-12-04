@@ -351,6 +351,8 @@ void freeMemory(treeElement *&root)
 	
 	freeMemoryRec(root);
 
+	initialize(root);
+
 	cout << "\nReleased memory of " << memoryAmount  << " elements." << endl;
 }
 
@@ -415,7 +417,6 @@ void treeToList(treeElement *&root)
 			temp = temp->right;
 		}
 	}
-
 }
 
 void listToPerfectTree(treeElement *&root, int N) {
@@ -537,24 +538,21 @@ int main()
 	addNode(root, 27);
 	addNode(root, 29);*/
 
+	treeToPerfectTree(root);
 
-	showPreorder(root);
 	showTreeHeight(root);
 
 	//rotateLeft(root, findTreeEl(root, 30), findTreeEl(root, 26), findTreeEl(root, 28));
-	treeToList(root);
-
-	showPreorder(root);
-	showTreeHeight(root);
-
-	listToPerfectTree(root,getTreeHeight(root));
-
-	showPreorder(root);
-	showTreeHeight(root);
-
-	//Wykonaj algorytm DSW:
 
 	freeMemory(root);
+
+	randomElPutting(root, X2);
+
+	showTreeHeight(root);
+
+	treeToPerfectTree(root);
+
+	showTreeHeight(root);
 
 	//Time stop:
 	end = clock();
