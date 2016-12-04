@@ -394,6 +394,27 @@ void rotateLeft(treeElement *root, treeElement *grandFather, treeElement *parent
 	return;
 }
 
+void treeToList(treeElement *root)
+{
+	treeElement *grandFather = NULL, *temp = root, *temp2;
+
+	while (temp != NULL)
+	{
+		if ((temp->left) != NULL)
+		{
+			temp2 = temp->left;
+			rotateRight(root, grandFather, temp, temp->left);
+			temp = temp2;
+		}
+		else
+		{
+			grandFather = temp;
+			temp = temp->right;
+		}
+	}
+
+}
+
 #pragma endregion
 
 #pragma region showTreeHeight
@@ -461,13 +482,17 @@ int main()
 
 	addNode(root, 30);
 	addNode(root, 34);
+	addNode(root, 35);
+	addNode(root, 36);
+	addNode(root, 37);
+	addNode(root, 38);
 	addNode(root, 32);
 	addNode(root, 31);
 
 	showPreorder(root);
 	showTreeHeight(root);
 
-	rotateRight(root, findTreeEl(root, 30), findTreeEl(root, 34), findTreeEl(root, 32));
+	treeToList(root);
 
 	showPreorder(root);
 	showTreeHeight(root);
