@@ -172,6 +172,7 @@ treeElement* findTreeEl(treeElement *&root, int X)
 
 	//if(found) cout << "\nFound >> Key: " << actual->key << " Left: " << actual->left << " Right: " << actual->right << "\nWord: " << actual->word << endl;
 	//else cout << "\nNot found an element with key "<< X << endl;
+
 	return(actual);
 
 }
@@ -354,16 +355,24 @@ void freeMemory(treeElement *&root)
 }
 
 #pragma endregion
-//
-//void rotateRight(treeElement grandFather, treeElement parent, treeElement child)
-//{
-//	if (grandFather != NULL)
-//	{
-//		if(grandFather->right)
-//	}
-//
-//	return;
-//}
+
+void rotateRight(treeElement *root, treeElement *grandFather, treeElement *parent, treeElement *child)
+{
+	if (grandFather != NULL)
+	{
+		if (grandFather->right = parent)
+			grandFather->right = child;
+		else grandFather->left = child;
+	}
+	else
+		root = child;
+
+	treeElement *temp = child->right;
+	child->right = parent;
+	parent->left = temp;
+
+	return;
+}
 
 #pragma region showTreeHeight
 
@@ -425,13 +434,23 @@ int main()
 	
 	initialize(root);
 
+	//randomElPutting(root, X1);
+	//showTreeHeight(root);
+
 	addNode(root, 30);
 	addNode(root, 34);
-	addNode(root, 26);
+	addNode(root, 32);
+	addNode(root, 31);
 
-	showInorder(root);
-
+	showPreorder(root);
 	showTreeHeight(root);
+
+	rotateRight(root, findTreeEl(root, 30), findTreeEl(root, 34), findTreeEl(root, 32));
+
+	showPreorder(root);
+	showTreeHeight(root);
+
+	//Wykonaj algorytm DSW:
 
 	freeMemory(root);
 
