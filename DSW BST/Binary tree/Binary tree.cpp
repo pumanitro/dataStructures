@@ -5,6 +5,7 @@
 #include <time.h>       /* time */
 #include <iostream>
 #include <string.h>
+#include <queue>
 
 using namespace std;
 
@@ -472,14 +473,43 @@ int getTreeHeightRec(treeElement *root)
 	else {
 		return rightHeight + 1;
 	}
+
 }
 
 int getTreeHeight(treeElement *root)
 {
 
-	height = getTreeHeightRec(root) + 1;
+	/*height = getTreeHeightRec(root) + 1;
 
-	return height;
+	return height;*/
+
+	if (root == NULL)
+		return 0;
+
+	queue<treeElement *> que;
+
+	que.push(root);
+	int height = 0;
+
+	while (1)
+	{
+		int nCounter = que.size();
+		if (nCounter == 0)
+			return height;
+
+		height++;
+		
+		while (nCounter > 0)
+		{
+			treeElement *node = que.front();
+			que.pop();
+			if (node->left != NULL)
+				que.push(node->left);
+			if (node->right != NULL)
+				que.push(node->right);
+			nCounter--;
+		}
+	}
 }
 
 void showTreeHeight(treeElement *root)
