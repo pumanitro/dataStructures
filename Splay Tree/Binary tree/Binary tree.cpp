@@ -454,60 +454,6 @@ void rotateLeft(treeElement *&root, treeElement *child)
 
 #pragma endregion
 
-void treeToList(treeElement *&root)
-{
-	treeElement *grandFather = NULL, *temp = root, *temp2;
-
-	while (temp != NULL)
-	{
-		if ((temp->left) != NULL)
-		{
-			temp2 = temp->left;
-			rotateRight(root, grandFather, temp, temp->left);
-			temp = temp2;
-		}
-		else
-		{
-			grandFather = temp;
-			temp = temp->right;
-		}
-	}
-}
-
-void listToPerfectTree(treeElement *&root, int N) {
-	treeElement *grandFather = NULL, *temp = root, *temp2;
-	int m = 1;
-
-	while (m <= N) m = 2 * m + 1;
-	m = m / 2;
-	
-	for (int i = 0; i < (N - m); i++)
-	{
-		temp2 = temp->right;
-		if (temp2 != NULL)
-		{
-			rotateLeft(root, grandFather, temp, temp->right);
-			grandFather = temp2;
-			temp = temp2->right;
-		}
-	}
-
-	while (m > 1)
-	{
-		m = m / 2;
-		grandFather = NULL;
-		temp = root;
-
-		for (int i = 0; i < m; i++)
-		{
-			temp2 = temp->right;
-			rotateLeft(root, grandFather, temp, temp->right);
-			grandFather = temp2;
-			temp = temp2->right;
-		}
-	}
-}
-
 #pragma region showTreeHeight
 
 int height, leftHeight, rightHeight,tempHeight;
@@ -576,19 +522,13 @@ void showTreeHeight(treeElement *root)
 
 #pragma endregion
 
-void treeToPerfectTree(treeElement *&root)
-{
-	treeToList(root);
-	listToPerfectTree(root,getTreeHeight(root));
-}
-
 void promoteNode(treeElement *&root, treeElement *greatGrandfather, treeElement *grandFather, treeElement *parent, treeElement *child)
 {
 	//zig-zig
 	if ((grandFather->left == parent) && (parent->left == child))
 	{
-		rotateRight(root, greatGrandfather, grandFather, parent);
-		rotateRight(root, greatGrandfather, grandFather, parent);
+		rotateRight(root, parent);
+		rotateRight(root, child);
 	}
 
 	return;
@@ -633,8 +573,6 @@ int main()
 	addNode(root, 27);
 	addNode(root, 29);*/
 
-	treeToPerfectTree(root);
-
 	showTreeHeight(root);
 
 	//rotateLeft(root, findTreeEl(root, 30), findTreeEl(root, 26), findTreeEl(root, 28));
@@ -644,8 +582,6 @@ int main()
 	randomElPutting(root, X2);
 
 	showTreeHeight(root);
-
-	treeToPerfectTree(root);
 
 	showTreeHeight(root);
 
