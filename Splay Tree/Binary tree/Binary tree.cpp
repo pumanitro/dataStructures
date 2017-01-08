@@ -146,7 +146,9 @@ void promoteNode(treeElement *&root, treeElement *child)
 	}
 }
 
-void addNode(treeElement *&root,int givenKey) {
+//return == 0 oznacza, że dany węzeł już istnieje
+//return == 1 oznacza prawidłowe zakończenie procesu dodawania
+int addNode(treeElement *&root,int givenKey) {
 	treeElement	*temp;
 	temp = new treeElement;
 
@@ -183,7 +185,7 @@ void addNode(treeElement *&root,int givenKey) {
 			{
 				cout << "Node with given key already exist!\n";
 				delete temp;
-				return;
+				return 0;
 			}
 
 			if (givenKey < actual->key)
@@ -193,7 +195,7 @@ void addNode(treeElement *&root,int givenKey) {
 					actual->left = temp;
 					promoteNode(root, temp);
 					cout << "\nAdded element >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
-					return;
+					return 1;
 				}
 				else
 				{
@@ -207,7 +209,7 @@ void addNode(treeElement *&root,int givenKey) {
 					actual->right = temp;
 					promoteNode(root, temp);
 					cout << "\nAdded element >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
-					return;
+					return 1;
 				}
 				else
 				{
@@ -309,6 +311,14 @@ treeElement* findTreeEl(treeElement *&root, int X)
 
 	return(actual);
 
+}
+
+void showTreeEl(treeElement *&root, int givenKey)
+{
+	treeElement *temp = findTreeEl(root, givenKey);
+
+	if (temp) cout << "\nFound >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
+	else cout << "\nNot found an element with key "<< givenKey << endl;
 }
 
 void randomElPutting(treeElement *&root, int amount)
@@ -577,6 +587,11 @@ void showTreeHeight(treeElement *root)
 
 #pragma endregion
 
+void hardNodeAdding(treeElement *&root, int givenKey)
+{
+	while (addNode(root, givenKey) == 0) { givenKey++; }
+}
+
 int main()
 {
 	/* initialize random seed: */
@@ -609,15 +624,28 @@ int main()
 	
 	initialize(root);
 
-	addNode(root, 100);
+	randomElPutting(root, X1);
 
-	randomElPutting(root, 20);
+	showInorder(root);
+	showPreorder(root);
+
+	hardNodeAdding(root, k1);
 
 	showPreorder(root);
 
-	promoteElDeleting(root, 100);
+	hardNodeAdding(root, k2);
 
 	showPreorder(root);
+
+	//Wyszukanie węzła
+	showTreeEl(root, k3);
+
+	showPreorder(root);
+
+	promoteElDeleting(root, k2);
+
+	showPreorder(root);
+	showInorder(root);
 
 	freeMemory(root);
 
