@@ -412,7 +412,8 @@ void rotateRight(treeElement *&root, treeElement *child)
 {
 	treeElement *grandfather, *parent, *actual = root;
 
-	findFamily(root, child, parent, grandfather);
+	if (0 == findFamily(root, child, parent, grandfather))
+		cout << "UFORTUNATELLY I CANT FIND FAMILY OF NOT EXISTING ELEMENT" << endl;
 
 	if (grandfather != NULL)
 	{
@@ -434,7 +435,8 @@ void rotateLeft(treeElement *&root, treeElement *child)
 {
 	treeElement *grandfather, *parent, *actual = root;
 
-	findFamily(root, child, parent, grandfather);
+	if (0 == findFamily(root, child, parent, grandfather))
+		cout << "UFORTUNATELLY I CANT FIND FAMILY OF NOT EXISTING ELEMENT" << endl;
 
 	if (grandfather != NULL)
 	{
