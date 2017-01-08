@@ -68,6 +68,7 @@ void addNode(treeElement *&root,int givenKey) {
 				if (actual->left == NULL)
 				{
 					actual->left = temp;
+					//promoteNode(root, temp, parent, grandfather);
 					cout << "\nAdded element >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
 					return;
 				}
@@ -85,6 +86,7 @@ void addNode(treeElement *&root,int givenKey) {
 				if (actual->right == NULL)
 				{
 					actual->right = temp;
+					//promoteNode(root, temp, parent, grandfather);
 					cout << "\nAdded element >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
 					return;
 				}
@@ -524,21 +526,42 @@ void showTreeHeight(treeElement *root)
 
 #pragma endregion
 
-void promoteNode(treeElement *&root, treeElement *child, treeElement *parent, treeElement *grandFather)
+void promoteNode(treeElement *&root, treeElement *child)
 {
-	//zig-zig
-	if ((grandFather->left == parent) && (parent->left == child))
+	while (root != child)
 	{
-		rotateRight(root, parent);
-		rotateRight(root, child);
-	}
-	else if ((grandFather->right == parent) && (parent->right == child))
-	{
-		rotateLeft(root, parent);
-		rotateLeft(root, child);
-	}
+		treeElement *parent, *grandFather;
 
-	//zig-zag
+		findFamily(root, child, parent, grandFather);
+
+		if (grandFather == NULL)
+		{
+			if (parent->right == child)
+				rotateLeft(root, child);
+			else
+				rotateRight(root, child);
+
+			return;
+		}
+
+		//zig-zig
+		if ((grandFather->left == parent) && (parent->left == child))
+		{
+			rotateRight(root, parent);
+			rotateRight(root, child);
+		}
+		else if ((grandFather->right == parent) && (parent->right == child))
+		{
+			rotateLeft(root, parent);
+			rotateLeft(root, child);
+		}
+		//zig-zag
+		else if (((grandFather->right == parent) && (parent->left == child)) || ((grandFather->left == parent) && (parent->right == child)))
+		{
+			rotateLeft(root, child);
+			rotateLeft(root, child);
+		}
+	}
 }
 
 int main()
@@ -573,18 +596,24 @@ int main()
 	
 	initialize(root);
 
-	addNode(root, 10);
+	addNode(root, 5);
 	addNode(root, 4);
+	addNode(root, 13);
 	addNode(root, 2);
-	addNode(root, 6);
+	addNode(root, 7);
+	addNode(root, 17);
+	addNode(root, 8);
+	addNode(root, 20);
 
 	showPreorder(root);
 
-	treeElement *child = findTreeEl(root, 2) , *parent, *grandfather;
+	
+	treeElement *child = findTreeEl(root, 20) , *parent, *grandfather;
 
-	findFamily(root, child, parent, grandfather);
+	//findFamily(root, child, parent, grandfather);
 
-	promoteNode(root, child, parent, grandfather);
+	promoteNode(root, child);
+	
 
 	showPreorder(root);
 
