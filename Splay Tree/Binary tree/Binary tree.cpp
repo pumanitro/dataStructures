@@ -197,10 +197,6 @@ void addNode(treeElement *&root,int givenKey) {
 				}
 				else
 				{
-					if (parent != NULL)
-						grandfather = parent;
-
-					parent = actual;
 					actual = actual->left;
 				}
 			}
@@ -215,10 +211,6 @@ void addNode(treeElement *&root,int givenKey) {
 				}
 				else
 				{
-					if (parent != NULL)
-						grandfather = parent;
-
-					parent = actual;
 					actual = actual->right;
 				}
 			}
@@ -470,6 +462,23 @@ void deleteEl(treeElement *&root, int givenKey)
 
 }
 
+void promoteElDeleting(treeElement *&root, int givenKey)
+{
+	if (root != NULL)
+	{
+		if (root->key == givenKey)
+		{
+			deleteEl(root, givenKey);
+		}
+		else
+		{
+			promoteNode(root, findTreeEl(root, givenKey));
+			deleteEl(root, givenKey);
+		}
+	}
+	
+}
+
 int memoryAmount = 0;
 
 void freeMemoryRec(treeElement *&root)
@@ -600,23 +609,13 @@ int main()
 	
 	initialize(root);
 
-	/**/
-	addNode(root, 5);
-	addNode(root, 4);
-	addNode(root, 13);
-	addNode(root, 2);
-	addNode(root, 7);
-	addNode(root, 17);
-	addNode(root, 8);
-	addNode(root, 20);
+	addNode(root, 100);
 
-	/*
-	treeElement *child = findTreeEl(root, 20) , *parent, *grandfather;
+	randomElPutting(root, 20);
 
-	//findFamily(root, child, parent, grandfather);
+	showPreorder(root);
 
-	promoteNode(root, child);
-	*/
+	promoteElDeleting(root, 100);
 
 	showPreorder(root);
 
