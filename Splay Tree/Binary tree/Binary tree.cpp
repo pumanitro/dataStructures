@@ -524,7 +524,7 @@ void showTreeHeight(treeElement *root)
 
 #pragma endregion
 
-void promoteNode(treeElement *&root, treeElement *grandFather, treeElement *parent, treeElement *child)
+void promoteNode(treeElement *&root, treeElement *child, treeElement *parent, treeElement *grandFather)
 {
 	//zig-zig
 	if ((grandFather->left == parent) && (parent->left == child))
@@ -577,6 +577,14 @@ int main()
 	addNode(root, 4);
 	addNode(root, 2);
 	addNode(root, 6);
+
+	showPreorder(root);
+
+	treeElement *child = findTreeEl(root, 2) , *parent, *grandfather;
+
+	findFamily(root, child, parent, grandfather);
+
+	promoteNode(root, child, parent, grandfather);
 
 	showPreorder(root);
 
