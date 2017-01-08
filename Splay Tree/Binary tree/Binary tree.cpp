@@ -103,6 +103,8 @@ void addNode(treeElement *&root,int givenKey) {
 
 }
 
+#pragma region All ordered search
+
 int preorderCounter = 0;
 
 void showPreorderRec(treeElement *&root)
@@ -170,6 +172,8 @@ void showPostorder(treeElement *&root)
 	showPostorderRec(root);
 	cout << "\nPostorder occurrences >> " << postorderCounter << endl;
 }
+
+#pragma endregion
 
 treeElement* findTreeEl(treeElement *&root, int X)
 {	
@@ -520,7 +524,7 @@ void showTreeHeight(treeElement *root)
 
 #pragma endregion
 
-void promoteNode(treeElement *&root, treeElement *greatGrandfather, treeElement *grandFather, treeElement *parent, treeElement *child)
+void promoteNode(treeElement *&root, treeElement *grandFather, treeElement *parent, treeElement *child)
 {
 	//zig-zig
 	if ((grandFather->left == parent) && (parent->left == child))
@@ -528,8 +532,13 @@ void promoteNode(treeElement *&root, treeElement *greatGrandfather, treeElement 
 		rotateRight(root, parent);
 		rotateRight(root, child);
 	}
+	else if ((grandFather->right == parent) && (parent->right == child))
+	{
+		rotateLeft(root, parent);
+		rotateLeft(root, child);
+	}
 
-	return;
+	//zig-zag
 }
 
 int main()
