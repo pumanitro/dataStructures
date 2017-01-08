@@ -51,7 +51,7 @@ void addNode(treeElement *&root,int givenKey) {
 	}
 	else 
 	{
-		treeElement *actual = root, *parent = NULL, *grandparent = NULL;
+		treeElement *actual = root, *parent = NULL, *grandfather = NULL, *greatGrandfather = NULL;
 
 		while (1)
 		{
@@ -73,8 +73,10 @@ void addNode(treeElement *&root,int givenKey) {
 				}
 				else
 				{
+					if (grandfather != NULL)
+						greatGrandfather = grandfather;
 					if (parent != NULL)
-						grandparent = parent;
+						grandfather = parent;
 
 					parent = actual;
 					actual = actual->left;
@@ -90,8 +92,10 @@ void addNode(treeElement *&root,int givenKey) {
 				}
 				else
 				{
+					if (grandfather != NULL)
+						greatGrandfather = grandfather;
 					if (parent != NULL)
-						grandparent = parent;
+						grandfather = parent;
 
 					parent = actual;
 					actual = actual->right;
@@ -539,6 +543,16 @@ void treeToPerfectTree(treeElement *&root)
 	listToPerfectTree(root,getTreeHeight(root));
 }
 
+void promoteNode(treeElement *&root, treeElement *greatGrandfather, treeElement *grandFather, treeElement *parent, treeElement *child)
+{
+	//zig-zig
+	if ((grandFather->left == parent) && (parent->left == child))
+	{
+		rotateRight(root,grandFather,parent,)
+	}
+
+	return;
+}
 
 int main()
 {
