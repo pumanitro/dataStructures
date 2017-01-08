@@ -22,6 +22,129 @@ void initialize(treeElement *&root) {
 	root = NULL;
 }
 
+#pragma region Rotation
+
+//if return == 0 govenNode doesn't exist
+//if return == 1 found parent or found parent and grandfather
+int findFamily(treeElement *root, treeElement *child, treeElement *&parent, treeElement *&grandfather)
+{
+	parent = NULL;
+	grandfather = NULL;
+
+	treeElement *actual = root;
+
+	while (child->key != actual->key)
+	{
+		if (parent != NULL)
+			grandfather = parent;
+
+		parent = actual;
+
+		if (child->key < actual->key)
+			if (actual->left == NULL)
+				return 0;
+			else
+				actual = actual->left;
+		else
+			if (actual->right == NULL)
+				return 0;
+			else
+				actual = actual->right;
+	}
+
+	return 1;
+}
+
+void rotateRight(treeElement *&root, treeElement *child)
+{
+	treeElement *grandfather, *parent, *actual = root;
+
+	if (0 == findFamily(root, child, parent, grandfather))
+		cout << "UFORTUNATELLY I CANT FIND FAMILY OF NOT EXISTING ELEMENT" << endl;
+
+	if (grandfather != NULL)
+	{
+		if (grandfather->right == parent)
+			grandfather->right = child;
+		else grandfather->left = child;
+	}
+	else
+		root = child;
+
+	treeElement *temp = child->right;
+	child->right = parent;
+	parent->left = temp;
+
+	return;
+}
+
+void rotateLeft(treeElement *&root, treeElement *child)
+{
+	treeElement *grandfather, *parent, *actual = root;
+
+	if (0 == findFamily(root, child, parent, grandfather))
+		cout << "UFORTUNATELLY I CANT FIND FAMILY OF NOT EXISTING ELEMENT" << endl;
+
+	if (grandfather != NULL)
+	{
+		if (grandfather->right == parent)
+			grandfather->right = child;
+		else grandfather->left = child;
+	}
+	else
+		root = child;
+
+	treeElement *temp = child->left;
+	child->left = parent;
+	parent->right = temp;
+
+	return;
+}
+
+#pragma endregion
+
+void promoteNode(treeElement *&root, treeElement *child)
+{
+	while (root != child)
+	{
+		treeElement *parent, *grandFather;
+
+		findFamily(root, child, parent, grandFather);
+
+		if (grandFather == NULL)
+		{
+			if (parent->right == child)
+				rotateLeft(root, child);
+			else
+				rotateRight(root, child);
+
+			return;
+		}
+
+		//zig-zig
+		if ((grandFather->left == parent) && (parent->left == child))
+		{
+			rotateRight(root, parent);
+			rotateRight(root, child);
+		}
+		else if ((grandFather->right == parent) && (parent->right == child))
+		{
+			rotateLeft(root, parent);
+			rotateLeft(root, child);
+		}
+		//zig-zag
+		else if ((grandFather->right == parent) && (parent->left == child))
+		{
+			rotateRight(root, child);
+			rotateLeft(root, child);
+		}
+		else if ((grandFather->left == parent) && (parent->right == child))
+		{
+			rotateLeft(root, child);
+			rotateRight(root, child);
+		}
+	}
+}
 
 void addNode(treeElement *&root,int givenKey) {
 	treeElement	*temp;
@@ -68,7 +191,7 @@ void addNode(treeElement *&root,int givenKey) {
 				if (actual->left == NULL)
 				{
 					actual->left = temp;
-					//promoteNode(root, temp, parent, grandfather);
+					promoteNode(root, temp);
 					cout << "\nAdded element >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
 					return;
 				}
@@ -86,7 +209,7 @@ void addNode(treeElement *&root,int givenKey) {
 				if (actual->right == NULL)
 				{
 					actual->right = temp;
-					//promoteNode(root, temp, parent, grandfather);
+					promoteNode(root, temp);
 					cout << "\nAdded element >> Key: " << temp->key << " Left: " << temp->left << " Right: " << temp->right << "\nWord: " << temp->word << endl;
 					return;
 				}
@@ -198,7 +321,7 @@ treeElement* findTreeEl(treeElement *&root, int X)
 
 void randomElPutting(treeElement *&root, int amount)
 {
-	int key = rand() % 18989 + 11;
+	int key = rand() % 29974 + 26;
 
 	for (int i = 0; i < amount; i++)
 	{
@@ -377,87 +500,6 @@ void freeMemory(treeElement *&root)
 
 #pragma endregion
 
-#pragma region Rotation
-
-//if return == 0 govenNode doesn't exist
-//if return == 1 found parent or found parent and grandfather
-int findFamily(treeElement *root, treeElement *child, treeElement *&parent , treeElement *&grandfather)
-{
-	parent = NULL;
-	grandfather = NULL;
-
-	treeElement *actual = root;
-
-	while (child->key != actual->key)
-	{
-		if (parent != NULL)
-			grandfather = parent;
-
-		parent = actual;
-
-		if (child->key < actual->key)
-			if (actual->left == NULL)
-				return 0;
-			else
-				actual = actual->left;
-		else
-			if (actual->right == NULL)
-				return 0;
-			else
-				actual = actual->right;
-	}
-
-	return 1;
-}
-
-void rotateRight(treeElement *&root, treeElement *child)
-{
-	treeElement *grandfather, *parent, *actual = root;
-
-	if (0 == findFamily(root, child, parent, grandfather))
-		cout << "UFORTUNATELLY I CANT FIND FAMILY OF NOT EXISTING ELEMENT" << endl;
-
-	if (grandfather != NULL)
-	{
-		if (grandfather->right == parent)
-			grandfather->right = child;
-		else grandfather->left = child;
-	}
-	else
-		root = child;
-
-	treeElement *temp = child->right;
-	child->right = parent;
-	parent->left = temp;
-
-	return;
-}
-
-void rotateLeft(treeElement *&root, treeElement *child)
-{
-	treeElement *grandfather, *parent, *actual = root;
-
-	if (0 == findFamily(root, child, parent, grandfather))
-		cout << "UFORTUNATELLY I CANT FIND FAMILY OF NOT EXISTING ELEMENT" << endl;
-
-	if (grandfather != NULL)
-	{
-		if (grandfather->right == parent)
-			grandfather->right = child;
-		else grandfather->left = child;
-	}
-	else
-		root = child;
-
-	treeElement *temp = child->left;
-	child->left = parent;
-	parent->right = temp;
-
-	return;
-}
-
-#pragma endregion
-
 #pragma region showTreeHeight
 
 int height, leftHeight, rightHeight,tempHeight;
@@ -526,44 +568,6 @@ void showTreeHeight(treeElement *root)
 
 #pragma endregion
 
-void promoteNode(treeElement *&root, treeElement *child)
-{
-	while (root != child)
-	{
-		treeElement *parent, *grandFather;
-
-		findFamily(root, child, parent, grandFather);
-
-		if (grandFather == NULL)
-		{
-			if (parent->right == child)
-				rotateLeft(root, child);
-			else
-				rotateRight(root, child);
-
-			return;
-		}
-
-		//zig-zig
-		if ((grandFather->left == parent) && (parent->left == child))
-		{
-			rotateRight(root, parent);
-			rotateRight(root, child);
-		}
-		else if ((grandFather->right == parent) && (parent->right == child))
-		{
-			rotateLeft(root, parent);
-			rotateLeft(root, child);
-		}
-		//zig-zag
-		else if (((grandFather->right == parent) && (parent->left == child)) || ((grandFather->left == parent) && (parent->right == child)))
-		{
-			rotateLeft(root, child);
-			rotateLeft(root, child);
-		}
-	}
-}
-
 int main()
 {
 	/* initialize random seed: */
@@ -596,6 +600,7 @@ int main()
 	
 	initialize(root);
 
+	/**/
 	addNode(root, 5);
 	addNode(root, 4);
 	addNode(root, 13);
@@ -605,15 +610,13 @@ int main()
 	addNode(root, 8);
 	addNode(root, 20);
 
-	showPreorder(root);
-
-	
+	/*
 	treeElement *child = findTreeEl(root, 20) , *parent, *grandfather;
 
 	//findFamily(root, child, parent, grandfather);
 
 	promoteNode(root, child);
-	
+	*/
 
 	showPreorder(root);
 
