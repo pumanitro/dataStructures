@@ -51,7 +51,7 @@ void addNode(treeElement *&root,int givenKey) {
 	}
 	else 
 	{
-		treeElement *actual = root;
+		treeElement *actual = root, *parent = NULL, *grandparent = NULL;
 
 		while (1)
 		{
@@ -72,7 +72,13 @@ void addNode(treeElement *&root,int givenKey) {
 					return;
 				}
 				else
+				{
+					if (parent != NULL)
+						grandparent = parent;
+
+					parent = actual;
 					actual = actual->left;
+				}
 			}
 			else
 			{
@@ -83,7 +89,13 @@ void addNode(treeElement *&root,int givenKey) {
 					return;
 				}
 				else
+				{
+					if (parent != NULL)
+						grandparent = parent;
+
+					parent = actual;
 					actual = actual->right;
+				}
 			}
 		} 
 	}
