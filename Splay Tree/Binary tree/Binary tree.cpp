@@ -551,18 +551,21 @@ int main()
 	double time_spent;
 	begin = clock();
 
-	//File read:
-	int X1, X2;
+#pragma region File reading
+
+	int X1, k1,k2,k3;
 	FILE* fp;
 	errno_t err;
 
-	err = fopen_s(&fp, "inlab04.txt", "r");
+	err = fopen_s(&fp, "inlab05.txt", "r");
 	if (err != 0)
 		return -1;
-	fscanf_s(fp, "%d %d", &X1, &X2);
+	fscanf_s(fp, "%d %d %d %d", &X1, &k1, &k2, &k3);
 	fclose(fp);
 
-	printf("I read from file %d %d\n", X1, X2);
+	printf("I have just read from file %d %d %d %d\n", X1, k1, k2, k3);
+
+#pragma endregion
 
 	//CONTENT :
 
@@ -570,27 +573,14 @@ int main()
 	
 	initialize(root);
 
-	randomElPutting(root, X1);
-	showTreeHeight(root);
+	addNode(root, 10);
+	addNode(root, 4);
+	addNode(root, 2);
+	addNode(root, 6);
 
-	/*addNode(root, 30);
-	addNode(root, 26);
-	addNode(root, 22);
-	addNode(root, 28);
-	addNode(root, 27);
-	addNode(root, 29);*/
-
-	showTreeHeight(root);
-
-	//rotateLeft(root, findTreeEl(root, 30), findTreeEl(root, 26), findTreeEl(root, 28));
+	showPreorder(root);
 
 	freeMemory(root);
-
-	randomElPutting(root, X2);
-
-	showTreeHeight(root);
-
-	showTreeHeight(root);
 
 	//Time stop:
 	end = clock();
