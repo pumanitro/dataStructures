@@ -377,13 +377,48 @@ void freeMemory(treeElement *&root)
 
 #pragma region Rotation
 
-void rotateRight(treeElement *&root, treeElement *grandFather, treeElement *parent, treeElement *child)
+//if return == 0 govenNode doesn't exist
+//if return == 1 found parent or found parent and grandfather
+int findFamily(treeElement *root, treeElement *child, treeElement *&parent , treeElement *&grandfather)
 {
-	if (grandFather != NULL)
+	parent = NULL;
+	grandfather = NULL;
+
+	treeElement *actual = root;
+
+	while (child->key != actual->key)
 	{
-		if (grandFather->right == parent)
-			grandFather->right = child;
-		else grandFather->left = child;
+		if (parent != NULL)
+			grandfather = parent;
+
+		parent = actual;
+
+		if (child->key < actual->key)
+			if (actual->left == NULL)
+				return 0;
+			else
+				actual = actual->left;
+		else
+			if (actual->right == NULL)
+				return 0;
+			else
+				actual = actual->right;
+	}
+
+	return 1;
+}
+
+void rotateRight(treeElement *&root, treeElement *child)
+{
+	treeElement *grandfather, *parent, *actual = root;
+
+	findFamily(root, child, parent, grandfather);
+
+	if (grandfather != NULL)
+	{
+		if (grandfather->right == parent)
+			grandfather->right = child;
+		else grandfather->left = child;
 	}
 	else
 		root = child;
@@ -548,7 +583,8 @@ void promoteNode(treeElement *&root, treeElement *greatGrandfather, treeElement 
 	//zig-zig
 	if ((grandFather->left == parent) && (parent->left == child))
 	{
-		rotateRight(root,grandFather,parent,)
+		rotateRight(root, greatGrandfather, grandFather, parent);
+		rotateRight(root, greatGrandfather, grandFather, parent);
 	}
 
 	return;
