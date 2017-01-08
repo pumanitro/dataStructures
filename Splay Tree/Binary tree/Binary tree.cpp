@@ -430,13 +430,17 @@ void rotateRight(treeElement *&root, treeElement *child)
 	return;
 }
 
-void rotateLeft(treeElement *&root, treeElement *grandFather, treeElement *parent, treeElement *child)
+void rotateLeft(treeElement *&root, treeElement *child)
 {
-	if (grandFather != NULL)
+	treeElement *grandfather, *parent, *actual = root;
+
+	findFamily(root, child, parent, grandfather);
+
+	if (grandfather != NULL)
 	{
-		if (grandFather->right == parent)
-			grandFather->right = child;
-		else grandFather->left = child;
+		if (grandfather->right == parent)
+			grandfather->right = child;
+		else grandfather->left = child;
 	}
 	else
 		root = child;
